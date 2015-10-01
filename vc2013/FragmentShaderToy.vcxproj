@@ -112,6 +112,11 @@
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\default.fs" />
+    <None Include="..\assets\default.vs" />
+    <None Include="..\assets\ripple.fs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

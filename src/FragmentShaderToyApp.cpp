@@ -91,11 +91,7 @@ void FragmentShaderToyApp::setup()
 	// set shader resolution uniform on resize (if shader has that uniform)
 	getWindow()->getSignalResize().connect([this]()
 	{
-		/*auto map = mProg->getActiveUniformTypes();
-		if (map.find("iResolution") != map.end())
-		{*/
 			mProg->uniform("iResolution", vec3(getWindowWidth(), getWindowHeight(), 0.0f));
-		//}
 	});
 }
 
@@ -107,19 +103,8 @@ void FragmentShaderToyApp::loadShader(const fs::path &fragment_path)
 			.fragment(loadFile(fragment_path)));
 		// no exceptions occurred, so store the shader's path for reloading on keypress
 		mCurrentShaderPath = fragment_path;
-		// check that uniforms exist before setting the constant uniforms
-		/*auto map = mProg->getActiveUniformTypes();
-		console() << "Successfully compiled fragment shader from: " << mCurrentShaderPath << endl;
-		console() << "Found uniforms:" << endl;
-		for (const auto &pair : map)
-		{
-			console() << pair.first << endl;
-		}
-		console() << endl;
-		if (map.find("iResolution") != map.end())
-		{*/
-			mProg->uniform("iResolution", vec3(getWindowWidth(), getWindowHeight(), 0.0f));
-		//}
+		mProg->uniform("iResolution", vec3(getWindowWidth(), getWindowHeight(), 0.0f));
+
 	}
 	catch (ci::gl::GlslProgCompileExc &exc)
 	{
@@ -133,30 +118,9 @@ void FragmentShaderToyApp::loadShader(const fs::path &fragment_path)
 
 void FragmentShaderToyApp::update()
 {
-	// get the current time with second-level accuracy
-	/*auto now = boost::posix_time::second_clock::local_time();
-	auto date = now.date();
-	auto time = now.time_of_day();*/
-	// set each uniform if it exists in the shader program
-	// when compiled, only uniforms that are used remain in the program
-	//auto map = mProg->getActiveUniformTypes();
-	//if (map.find("iGlobalTime") != map.end())
-	//{
 		mProg->uniform("iGlobalTime", static_cast<float>(getElapsedSeconds()));
-	/*}
-	if (map.find("iDate") != map.end())
-	{
-		mProg->uniform("iDate", vec4(date.year(), date.month(), date.day_number(), time.total_seconds()));
-	}
-	if (map.find("iMouse") != map.end())
-	{*/
 		mProg->uniform("iMouse", mMouseCoord);
-	/*}
-	if (map.find("iChannel0") != map.end())
-	{*/
 		mProg->uniform("iChannel0", 0);
-	//}
-
 }
 
 void FragmentShaderToyApp::draw()
